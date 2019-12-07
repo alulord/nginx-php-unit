@@ -1,8 +1,39 @@
 FROM alpine:edge
-
 MAINTAINER "Peter Simoncic"
 
-RUN apk add --no-cache bash shadow nano curl unit unit-php7 php7-mysqli
+RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
+RUN apk --no-cache upgrade && \
+    apk add --no-cache bash shadow nano curl unit unit-php7 \
+        php7-common \
+        php7-pecl-imagick \
+        php7-mysqli \
+        php7-pecl-apcu \
+        php7-bz2 \
+        php7-opcache \
+        php7-intl \
+        php7-json \
+        php7-gettext \
+        php7-bcmath \
+        php7-dom \
+        php7-mbstring \
+        php7-openssl \
+        php7-xml \
+        php7-gd \
+        php7-exif \
+        php7-amqp \
+        php7-tokenizer \
+        php7-zip \
+        php7-curl \
+        php7-zlib \
+        php7-iconv \
+        php7-simplexml \
+        php7-xmlwriter \
+        php7-pdo \
+        php7-pecl-mongodb@testing \
+        php7-pecl-uuid@testing \
+        php7-ctype
+
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN mkdir -p /docker-entrypoint.d/ /var/www/
