@@ -30,6 +30,7 @@ RUN apk --no-cache upgrade && \
         php7-simplexml \
         php7-xmlwriter \
         php7-pdo \
+        php7-phar \
         php7-pecl-mongodb@testing \
         php7-pecl-uuid@testing \
         php7-ctype
