@@ -1,6 +1,9 @@
 FROM alpine:edge
 MAINTAINER "Peter Simoncic"
 
+ARG USER_ID
+ARG GROUP_ID
+
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
 RUN apk --no-cache upgrade && \
