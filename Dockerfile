@@ -7,7 +7,7 @@ ARG GROUP_ID
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
 RUN apk --no-cache upgrade && \
-    apk add --no-cache bash shadow nano curl unit unit-php7 \
+    apk add --no-cache bash shadow nano curl supervisor unit unit-php7 \
         php7-common \
         php7-pecl-imagick \
         php7-mysqli \
@@ -34,6 +34,9 @@ RUN apk --no-cache upgrade && \
         php7-xmlwriter \
         php7-pdo \
         php7-phar \
+        php7-session \
+        php7-pdo_mysql \
+        php7-pecl-redis \
         php7-pecl-mongodb@testing \
         php7-pecl-uuid@testing \
         php7-ctype
@@ -60,6 +63,8 @@ RUN if [ ${USER_ID:-1000} -ne 1000 ] && [ ${GROUP_ID:-1000} -ne 1000 ]; then \
 ;fi
 
 STOPSIGNAL SIGTERM
+
+WORKDIR /var/www/
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
