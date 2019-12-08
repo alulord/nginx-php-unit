@@ -1,8 +1,8 @@
 FROM alpine:edge
 MAINTAINER "Peter Simoncic"
 
-RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    apk --no-cache upgrade && \
+RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories &&\
+    apk --no-cache upgrade &&\
     apk add --no-cache bash shadow nano curl supervisor composer unit unit-php7 \
         php7-common \
         php7-pecl-imagick \
@@ -41,9 +41,9 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
 COPY docker-entrypoint.sh /usr/local/bin/
 
 # forward log to docker log collector
-RUN ln -sf /dev/stdout /var/log/unit.log \
-    mkdir -p /docker-entrypoint.d/ /var/www/ \
-    composer config --global discard-changes true \
+RUN ln -sf /dev/stdout /var/log/unit.log &&\
+    mkdir -p /docker-entrypoint.d/ /var/www/ &&\
+    composer config --global discard-changes true &&\
     adduser -D -s /bin/bash -u 1000 user &&\
     chown -R user:user /var/www/
 
