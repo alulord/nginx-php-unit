@@ -3,7 +3,7 @@ MAINTAINER "Peter Simoncic"
 
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories &&\
     apk --no-cache upgrade &&\
-    apk add --no-cache bash shadow nano curl supervisor composer unit unit-php7 \
+    apk add --no-cache bash shadow nano curl supervisor composer yarn unit unit-php7 \
         php7-common \
         php7-pecl-imagick \
         php7-mysqli \
