@@ -18,6 +18,19 @@ curl_put()
     return 0
 }
 
+# Install xdebug
+if [[ "${INSTALL_XDEBUG:-false}" == "true" ]]; then apk add --no-cache php7-pecl-xdebug; fi
+
+# Change user owner if give UID and GID is different than our user
+if [[ ${USER_ID:-1000} -ne 1000 ]] && [[ ${GROUP_ID:-1000} -ne 1000 ]]; then
+    userdel -f user
+    if getent group user ; then groupdel user; fi
+    groupadd -g ${GROUP_ID} user
+    useradd -l -u ${USER_ID} -g user user
+    install -d -m 0755 -o user -g user /home/user
+    chown --changes --silent --no-dereference --recursive ${USER_ID}:${GROUP_ID} /home/user /var/www
+fi
+
 if [[ "$1" = "unitd" ]]; then
     if /usr/bin/find "/var/lib/unit/" -mindepth 1 -print -quit 2>/dev/null | /bin/grep -q .; then
         echo "$0: /var/lib/unit/ is not empty, skipping initial configuration..."
